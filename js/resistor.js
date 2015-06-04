@@ -70,15 +70,15 @@ var ResistorCalc = React.createClass({
     getResistance: function() {
         var ohms = (this.state.ring1 * 10 + parseFloat(this.state.ring2)) * this.state.ring3;
 
-        if (ohms > 1000000000) {
+        if (ohms >= 1000000000) {
             return ohms / 1000000000 + "G";
         }
 
-        if (ohms > 1000000) {
+        if (ohms >= 1000000) {
             return ohms / 1000000 + "M";
         }
 
-        if (ohms > 1000) {
+        if (ohms >= 1000) {
             return ohms / 1000 + "k";
         }
 
