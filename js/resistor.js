@@ -56,6 +56,13 @@ var ResistorCalc = React.createClass({
             listVisible: false
         };
     },
+    updateRectColor: function(ring, node) {
+        document
+            .getElementById('svg_resistor')
+            .contentDocument
+            .getElementById('display_ring' + ring)
+            .style.fill = node.options[node.selectedIndex].text;
+    },
     handleChange: function() {
         var r1 = React.findDOMNode(this.refs.ring1);
         var r2 = React.findDOMNode(this.refs.ring2);
@@ -70,10 +77,10 @@ var ResistorCalc = React.createClass({
         });
 
         // update UI
-        document.getElementById('display_ring1').style.fill = r1.options[r1.selectedIndex].text;
-        document.getElementById('display_ring2').style.fill = r2.options[r2.selectedIndex].text;
-        document.getElementById('display_ring3').style.fill = r3.options[r3.selectedIndex].text;
-        document.getElementById('display_ring4').style.fill = r4.options[r4.selectedIndex].text;
+        this.updateRectColor(1, r1);
+        this.updateRectColor(2, r2);
+        this.updateRectColor(3, r3);
+        this.updateRectColor(4, r4);
 
     },
     getValue: function(type, color) {
