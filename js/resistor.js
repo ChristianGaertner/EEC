@@ -59,7 +59,7 @@ var ResistorCalc = React.createClass({
     updateRectColor: function(ring, node) {
         document
             .getElementById('svg_resistor')
-            .contentDocument
+            .getSVGDocument()
             .getElementById('display_ring' + ring)
             .style.fill = node.options[node.selectedIndex].text;
     },
