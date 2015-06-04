@@ -57,12 +57,24 @@ var ResistorCalc = React.createClass({
         };
     },
     handleChange: function() {
+        var r1 = React.findDOMNode(this.refs.ring1);
+        var r2 = React.findDOMNode(this.refs.ring2);
+        var r3 = React.findDOMNode(this.refs.ring3);
+        var r4 = React.findDOMNode(this.refs.ring4);
+        // update state
         this.setState({
-            ring1: React.findDOMNode(this.refs.ring1).value,
-            ring2: React.findDOMNode(this.refs.ring2).value,
-            ring3: React.findDOMNode(this.refs.ring3).value,
-            ring4: React.findDOMNode(this.refs.ring4).value
+            ring1: r1.value,
+            ring2: r2.value,
+            ring3: r3.value,
+            ring4: r4.value
         });
+
+        // update UI
+        document.getElementById('display_ring1').style.fill = r1.options[r1.selectedIndex].text;
+        document.getElementById('display_ring2').style.fill = r2.options[r2.selectedIndex].text;
+        document.getElementById('display_ring3').style.fill = r3.options[r3.selectedIndex].text;
+        document.getElementById('display_ring4').style.fill = r4.options[r4.selectedIndex].text;
+
     },
     getValue: function(type, color) {
         return ColorCodes[type][color];
