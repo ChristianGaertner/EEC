@@ -49,10 +49,11 @@ var ResistorCalc = React.createClass({
     displayName: 'ResistorCalc',
     getInitialState: function () {
         return {
-                ring1: 1,
-                ring2: 0,
-                ring3: 1,
-                ring4: 0.2
+            ring1: 0,
+            ring2: 0,
+            ring3: 0,
+            ring4: 0.2,
+            listVisible: false
         };
     },
     handleChange: function() {
@@ -67,29 +68,56 @@ var ResistorCalc = React.createClass({
         return ColorCodes[type][color];
     },
     getResistance: function() {
-        var value = this.getValue(TypeEnum.SIG_FIGURE, this.state.ring1) * 10
-                    + this.getValue(TypeEnum.SIG_FIGURE, this.state.ring2);
+        var ohms = (this.state.ring1 * 10 + parseFloat(this.state.ring2)) * this.state.ring3;
 
-        return value * this.getValue(TypeEnum.MULTIPLIER, this.state.ring3);
+        if (ohms > 1000000000) {
+            return ohms / 1000000000 + "G";
+        }
+
+        if (ohms > 1000000) {
+            return ohms / 1000000 + "M";
+        }
+
+        if (ohms > 1000) {
+            return ohms / 1000 + "k";
+        }
+
+        return ohms
     },
     getTolerance: function() {
-        if (this.state.ring4 || this.state.ring4 == "") {
-            this.state.ring4 = "none";
-        }
-        return this.getValue(TypeEnum.TOLERANCE, this.state.ring4) * 100;
+        return this.state.ring4 * 100;
     },
     render: function () {
         return (
             <div>
-                <input type="text" ref="ring1" onChange={this.handleChange}/>
-                <input type="text" ref="ring2" onChange={this.handleChange}/>
-                <input type="text" ref="ring3" onChange={this.handleChange}/>
-                <input type="text" ref="ring4" onChange={this.handleChange}/>
+                { this.renderItems() }
                 <p>
                     { this.getResistance() }&#8486; @ &plusmn;{ this.getTolerance() }%
                 </p>
             </div>
         );
+    },
+    renderItems: function() {
+        var createOption = function(type, color) {
+            return <option value={ ColorCodes[type][color] }>{ color }</option>
+        };
+
+        var createList = function(type) {
+            var list = [];
+            for (var color in ColorCodes[type]) {
+                list.push(createOption(type, color))
+            }
+            return list;
+        };
+
+        return (
+            <div class="selection">
+                <select ref="ring1" onChange={ this.handleChange }>{ createList(TypeEnum.SIG_FIGURE) }</select>
+                <select ref="ring2" onChange={ this.handleChange }>{ createList(TypeEnum.SIG_FIGURE) }</select>
+                <select ref="ring3" onChange={ this.handleChange }>{ createList(TypeEnum.MULTIPLIER) }</select>
+                <select ref="ring4" onChange={ this.handleChange }>{ createList(TypeEnum.TOLERANCE) }</select>
+            </div>
+        )
     }
 });
 
