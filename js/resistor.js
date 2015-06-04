@@ -52,7 +52,7 @@ var ResistorCalc = React.createClass({
             ring1: 0,
             ring2: 0,
             ring3: 0,
-            ring4: 0.2,
+            ring4: 0.01,
             listVisible: false
         };
     },
