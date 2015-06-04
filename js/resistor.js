@@ -87,7 +87,8 @@ var ResistorCalc = React.createClass({
         return ColorCodes[type][color];
     },
     getResistance: function() {
-        var ohms = ((this.state.ring1 * 10 + parseFloat(this.state.ring2)) * this.state.ring3).toFixed(1);
+        var ohms = (this.state.ring1 * 10 + parseFloat(this.state.ring2)) * this.state.ring3;
+        ohms = Math.round(ohms * 1000) / 1000;
 
         if (ohms >= 1000000000) {
             return ohms / 1000000000 + "G";
