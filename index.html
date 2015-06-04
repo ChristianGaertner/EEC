@@ -8,14 +8,32 @@
         <script src="js/react/JSXTransformer.js"></script>
 
         <script src="js/resistor.js" type="text/jsx" charset="utf-8"></script>
+        
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/skeleton.css">
 
     </head>
     
     <body>
-        <h1>EEC</h1>
-        <h3>Resitance</h3>
-        <div id="resistor"></div>
 
-        <object id="svg_resistor" type="image/svg+xml" data="svg/resistor.svg" alt="resistor">
+        <div class="container">
+            <div class="row">
+                <div class="one colum">
+                    <h1>EEC</h1>
+                </div>
+                <div class="twocolum">
+                    <h5>Created by Christian Gärtner</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="three columns">
+                    <h3>Resitance</h3>
+                </div>
+                <div class="five columns" id="resistor"></div>
+                <div class="four columns">
+                    <object id="svg_resistor" type="image/svg+xml" data="svg/resistor.svg" alt="resistor">
+                </div>
+            </div>
+        </div>
     </body>
 </html>
