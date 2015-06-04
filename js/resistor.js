@@ -18,16 +18,16 @@ var ColorCodes = {
         'white': 9
     },
     'multiplier': {
-        'black': 10,
-        'brown': 100,
-        'red': 1000,
-        'orange': 10000,
-        'yellow': 100000,
-        'green': 1000000,
-        'blue': 1000000,
-        'violet': 10000000,
-        'gray': 100000000,
-        'white': 1000000000,
+        'black': 1,
+        'brown': 10,
+        'red': 100,
+        'orange': 1000,
+        'yellow': 10000,
+        'green': 100000,
+        'blue': 100000,
+        'violet': 1000000,
+        'gray': 10000000,
+        'white': 100000000,
         'gold': 0.1,
         'silver': 0.2
     },
@@ -67,9 +67,16 @@ var ResistorCalc = React.createClass({
         return ColorCodes[type][color];
     },
     getResistance: function() {
-        return this.getValue(TypeEnum.SIG_FIGURE, this.state.ring1) * 10
-            +  this.getValue(TypeEnum.SIG_FIGURE, this.state.ring2)
-            *  this.getValue(TypeEnum.MULTIPLIER, this.state.ring3);
+        var value = this.getValue(TypeEnum.SIG_FIGURE, this.state.ring1) * 10
+                    + this.getValue(TypeEnum.SIG_FIGURE, this.state.ring2);
+
+        return value * this.getValue(TypeEnum.MULTIPLIER, this.state.ring3);
+    },
+    getTolerance: function() {
+        if (this.state.ring4 || this.state.ring4 == "") {
+            this.state.ring4 = "none";
+        }
+        return this.getValue(TypeEnum.TOLERANCE, this.state.ring4) * 100;
     },
     render: function () {
         return (
@@ -79,7 +86,7 @@ var ResistorCalc = React.createClass({
                 <input type="text" ref="ring3" onChange={this.handleChange}/>
                 <input type="text" ref="ring4" onChange={this.handleChange}/>
                 <p>
-                    { this.getResistance() }
+                    { this.getResistance() }&#8486; @ &plusmn;{ this.getTolerance() }%
                 </p>
             </div>
         );
