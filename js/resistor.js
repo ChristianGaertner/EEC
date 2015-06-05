@@ -112,7 +112,12 @@ var ResistorCalc = React.createClass({
             <div>
                 { this.renderItems() }
                 <p>
-                    { this.getResistance() }&#8486; @ &plusmn;{ this.getTolerance() }%
+                    <h5 className="inline">
+                        { this.getResistance() }&#8486;   
+                    </h5>
+                    <h6 className="inline">
+                        &nbsp;w/ &plusmn;{ this.getTolerance() }% tolerance.
+                    </h6>  
                 </p>
             </div>
         );
