@@ -78,9 +78,6 @@ var ResistorCalc = React.createClass({
         this.updateRectColor(4, r4);
 
     },
-    getValue: function(type, color) {
-        return ColorCodes[type][color];
-    },
     getResistance: function() {
         var ohms = this.calcValue(this.state.ring1, this.state.ring2, this.state.ring3);
 
@@ -102,17 +99,14 @@ var ResistorCalc = React.createClass({
         return this.state.ring4 * 100;
     },
     render: function () {
-        return this.basicRender(this.renderItems(), this.getResistance(), this.getTolerance(), "\u03a9")
+        return this.basicRender(this.renderItems(), this.getResistance(), this.getTolerance(), "\u03a9", "%")
     },
     renderItems: function() {
-        return (
-            <div class="selection">
-                <select ref="ring1" onChange={ this.handleChange }>{ this.createList(ColorCodes, TypeEnum.SIG_FIGURE) }</select>
-                <select ref="ring2" onChange={ this.handleChange }>{ this.createList(ColorCodes, TypeEnum.SIG_FIGURE) }</select>
-                <select ref="ring3" onChange={ this.handleChange }>{ this.createList(ColorCodes, TypeEnum.MULTIPLIER) }</select>
-                <select ref="ring4" onChange={ this.handleChange }>{ this.createList(ColorCodes, TypeEnum.TOLERANCE) }</select>
-            </div>
-        )
+        return this.basicRenderItems(
+            "selection", this.handleChange, ColorCodes,
+            [TypeEnum.SIG_FIGURE, TypeEnum.SIG_FIGURE, TypeEnum.MULTIPLIER, TypeEnum.TOLERANCE],
+            ["ring1", "ring2", "ring3", "ring4"]
+        );
     }
 });
 
