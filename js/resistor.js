@@ -51,7 +51,7 @@ var ResistorCalc = React.createClass({
             listVisible: false
         };
     },
-    updateRectColor: function(ring, node) {
+    updateUI: function(ring, node) {
         document
             .getElementById('svg_resistor')
             .getSVGDocument()
@@ -72,10 +72,10 @@ var ResistorCalc = React.createClass({
         });
 
         // update UI
-        this.updateRectColor(1, r1);
-        this.updateRectColor(2, r2);
-        this.updateRectColor(3, r3);
-        this.updateRectColor(4, r4);
+        this.updateUI(1, r1);
+        this.updateUI(2, r2);
+        this.updateUI(3, r3);
+        this.updateUI(4, r4);
 
     },
     getResistance: function() {

@@ -46,6 +46,13 @@ var CapacitorCalc = React.createClass({
             letter: DigitCodes[TypeEnum.TOLERANCE]['C']
         };
     },
+    updateUI: function(digit, node) {
+        document
+            .getElementById('svg_capacitor')
+            .getSVGDocument()
+            .getElementById('display_' + digit)
+            .textContent = node.options[node.selectedIndex].text;
+    },
     handleChange: function() {
         var d1 = React.findDOMNode(this.refs.digit1);
         var d2 = React.findDOMNode(this.refs.digit2);
@@ -58,6 +65,12 @@ var CapacitorCalc = React.createClass({
             digit3: d3.value,
             letter: l1.value
         });
+
+        // updateUI
+        this.updateUI('digit1', d1);
+        this.updateUI('digit2', d2);
+        this.updateUI('digit3', d3);
+        this.updateUI('letter', l1);
     },
     getCapacitance: function() {
         var c = this.calcValue(this.state.digit1, this.state.digit2, this.state.digit3)
