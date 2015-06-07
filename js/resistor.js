@@ -40,6 +40,7 @@ var ColorCodes = {
 }
 
 var ResistorCalc = React.createClass({
+    mixins: [SelectHelper, ValueCalculator, ComponentRenderer],
     displayName: 'ResistorCalc',
     getInitialState: function () {
         return {
@@ -81,8 +82,7 @@ var ResistorCalc = React.createClass({
         return ColorCodes[type][color];
     },
     getResistance: function() {
-        var ohms = (this.state.ring1 * 10 + parseFloat(this.state.ring2)) * this.state.ring3;
-        ohms = Math.round(ohms * 1000) / 1000;
+        var ohms = this.calcValue(this.state.ring1, this.state.ring2, this.state.ring3);
 
         if (ohms >= 1000000000) {
             return ohms / 1000000000 + "G";
@@ -102,39 +102,15 @@ var ResistorCalc = React.createClass({
         return this.state.ring4 * 100;
     },
     render: function () {
-        return (
-            <div>
-                { this.renderItems() }
-                <p>
-                    <h5 className="inline">
-                        { this.getResistance() }&#8486;   
-                    </h5>
-                    <h6 className="inline">
-                        &nbsp;w/ &plusmn;{ this.getTolerance() }% tolerance.
-                    </h6>  
-                </p>
-            </div>
-        );
+        return this.basicRender(this.renderItems(), this.getResistance(), this.getTolerance(), "\u03a9")
     },
     renderItems: function() {
-        var createOption = function(type, color) {
-            return <option value={ ColorCodes[type][color] }>{ color }</option>
-        };
-
-        var createList = function(type) {
-            var list = [];
-            for (var color in ColorCodes[type]) {
-                list.push(createOption(type, color))
-            }
-            return list;
-        };
-
         return (
             <div class="selection">
-                <select ref="ring1" onChange={ this.handleChange }>{ createList(TypeEnum.SIG_FIGURE) }</select>
-                <select ref="ring2" onChange={ this.handleChange }>{ createList(TypeEnum.SIG_FIGURE) }</select>
-                <select ref="ring3" onChange={ this.handleChange }>{ createList(TypeEnum.MULTIPLIER) }</select>
-                <select ref="ring4" onChange={ this.handleChange }>{ createList(TypeEnum.TOLERANCE) }</select>
+                <select ref="ring1" onChange={ this.handleChange }>{ this.createList(ColorCodes, TypeEnum.SIG_FIGURE) }</select>
+                <select ref="ring2" onChange={ this.handleChange }>{ this.createList(ColorCodes, TypeEnum.SIG_FIGURE) }</select>
+                <select ref="ring3" onChange={ this.handleChange }>{ this.createList(ColorCodes, TypeEnum.MULTIPLIER) }</select>
+                <select ref="ring4" onChange={ this.handleChange }>{ this.createList(ColorCodes, TypeEnum.TOLERANCE) }</select>
             </div>
         )
     }
