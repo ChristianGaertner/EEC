@@ -1,9 +1,3 @@
-var TypeEnum = {
-    SIG_FIGURE: 'sig_figure',
-    MULTIPLIER: 'multiplier',
-    TOLERANCE: 'tolerance'
-}
-
 var ColorCodes = {
     'sig_figure': {
         'black': 0,
