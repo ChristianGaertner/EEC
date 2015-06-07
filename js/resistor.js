@@ -80,20 +80,8 @@ var ResistorCalc = React.createClass({
     },
     getResistance: function() {
         var ohms = this.calcValue(this.state.ring1, this.state.ring2, this.state.ring3);
-
-        if (ohms >= 1000000000) {
-            return ohms / 1000000000 + "G";
-        }
-
-        if (ohms >= 1000000) {
-            return ohms / 1000000 + "M";
-        }
-
-        if (ohms >= 1000) {
-            return ohms / 1000 + "k";
-        }
-
-        return ohms
+        return this.convertUnit(ohms);
+        
     },
     getTolerance: function() {
         return this.state.ring4 * 100;

@@ -12,16 +12,14 @@ var DigitCodes = {
         "9": 9
     },
     'multiplier': {
-        "0": 1e-12,
-        "1": 1e-11,
-        "2": 1e-9,
-        "3": 1e-8,
-        "4": 1e-7,
-        "5": 1e-6,
-        "6": 1e-5,
-        "7": 1e-4,
-        "8": 1e-3,
-        "9": 1e-2
+        "0": 1,
+        "1": 10,
+        "2": 1e2,
+        "3": 1e3,
+        "4": 1e4,
+        "5": 1e5,
+        "8": 1e-2,
+        "9": 1e-1
     },
     'tolerance': {
         'C': '0.25 pF',
@@ -31,7 +29,9 @@ var DigitCodes = {
         'J': '5 %',
         'K': '10 %',
         'M': '20 %',
-        'Z': '-20% + 80%'
+        'N': '30 %',
+        'P': '+100%, -0%',
+        'Z': '-20%, +80%'
     }
 }
 
@@ -60,14 +60,33 @@ var CapacitorCalc = React.createClass({
         });
     },
     getCapacitance: function() {
-        return this.calcValue(this.state.digit1, this.state.digit2, this.state.digit3);
+        var c = this.calcValue(this.state.digit1, this.state.digit2, this.state.digit3)
+        if (c >= 1e6) {
+            return c / 1e6 + "\u00B5";
+        }
+        if (c >= 1e3) {
+            return c / 1e3 + "n";
+        }
+
+        if (this.state.digit3 == 1e-2) {
+            return c / 1e-1 + "m";
+        }
+
+        if (this.state.digit3 == 1e-1) {
+            return this.state.digit1 * 10 + parseFloat(this.state.digit2) + "m";
+        }
+
+        return c + "p";
     },
     getTolerance: function() {
         return this.state.letter;
     },
     render: function () {
-        console.log(this.state);
-        return this.basicRender(this.renderItems(), this.getCapacitance(), this.getTolerance(), "F", "");
+        var showPlusMinus = true;
+        if (this.getTolerance().includes('+') || this.getTolerance().includes('-')) {
+            showPlusMinus = false;
+        }
+        return this.basicRender(this.renderItems(), this.getCapacitance(), this.getTolerance(), "F", "", showPlusMinus);
     },
     renderItems: function() {
         return this.basicRenderItems(
