@@ -69,7 +69,7 @@
       <text id="display_value3" x="135" y="120"
         font-family="Courier"
         font-size="20">
-            200V
+            40 nF
       </text>
 
       <text x="110" y="140"
@@ -80,7 +80,7 @@
       <text id="display_value4" x="135" y="140"
         font-family="Courier"
         font-size="20">
-            200pF
+            4 µJ
       </text>
 
 </svg>
