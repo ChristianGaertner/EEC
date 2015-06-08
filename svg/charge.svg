@@ -45,7 +45,7 @@
       <text id="display_value1" x="35" y="120"
         font-family="Courier"
         font-size="20">
-            200V
+            1V
       </text>
 
       <text x="10" y="140"
@@ -56,7 +56,7 @@
       <text id="display_value2" x="35" y="140"
         font-family="Courier"
         font-size="20">
-            200pF
+            1F
       </text>
 
       <!-- OUTPUT VALUES-->
@@ -69,7 +69,7 @@
       <text id="display_value3" x="135" y="120"
         font-family="Courier"
         font-size="20">
-            40 nF
+            1 C
       </text>
 
       <text x="110" y="140"
@@ -80,7 +80,7 @@
       <text id="display_value4" x="135" y="140"
         font-family="Courier"
         font-size="20">
-            4 µJ
+            0.5 J
       </text>
 
 </svg>
