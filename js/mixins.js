@@ -37,7 +37,8 @@ var SelectHelper = {
 
 var ValueCalculator = {
     calcValue: function(v1, v2, v3) {
-        return (v1 * 10 + parseFloat(v2)) * v3;
+        var v = (v1 * 10 + parseFloat(v2)) * v3;
+        return Math.round(v * 1e5) / 1e5;
     },
     convertUnit: function(value) {
         if (value == 0) {

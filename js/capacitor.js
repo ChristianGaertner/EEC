@@ -82,7 +82,11 @@ var CapacitorCalc = React.createClass({
         }
 
         if (this.state.digit3 == 1e-2) {
-            return c / 1e-1 + "m";
+            return Math.round(
+                (c / 1e-1) * 1e5
+            ) / 1e5
+            + "m";
+            
         }
 
         if (this.state.digit3 == 1e-1) {
